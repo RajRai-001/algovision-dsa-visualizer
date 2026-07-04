@@ -5,194 +5,425 @@ import ControlPanel from "../components/ControlPanel";
 import SpeedSlider from "../components/SpeedSlider";
 import ComplexityCard from "../components/ComplexityCard";
 
+import { preorderTraversal } from "../algorithms/preorder";
+import { inorderTraversal } from "../algorithms/inorder";
+import { postorderTraversal } from "../algorithms/postorder";
+
 const Trees = () => {
 
   const [speed, setSpeed] = useState(300);
 
   const [isRunning, setIsRunning] = useState(false);
 
-  const generateTree = () => {
-    alert("Generate Random Tree (Coming Soon)");
+  const [algorithm, setAlgorithm] = useState("Preorder");
+
+  const [currentNode, setCurrentNode] = useState(null);
+
+  const [visitedNodes, setVisitedNodes] = useState([]);
+
+  const [traversalOrder, setTraversalOrder] = useState([]);
+
+  const tree = {
+    value: 50,
+
+    left: {
+      value: 30,
+
+      left: {
+        value: 20,
+        left: null,
+        right: null,
+      },
+
+      right: {
+        value: 40,
+        left: null,
+        right: null,
+      },
+    },
+
+    right: {
+      value: 70,
+
+      left: {
+        value: 60,
+        left: null,
+        right: null,
+      },
+
+      right: {
+        value: 80,
+        left: null,
+        right: null,
+      },
+    },
   };
 
-  const startTraversal = () => {
+  const treeDetails = {
+
+    Preorder: {
+
+      best: "O(n)",
+      average: "O(n)",
+      worst: "O(n)",
+      space: "O(h)",
+
+      description:
+        "Visits Root → Left → Right.",
+
+    },
+
+    Inorder: {
+
+      best: "O(n)",
+      average: "O(n)",
+      worst: "O(n)",
+      space: "O(h)",
+
+      description:
+        "Visits Left → Root → Right.",
+
+    },
+
+    Postorder: {
+
+      best: "O(n)",
+      average: "O(n)",
+      worst: "O(n)",
+      space: "O(h)",
+
+      description:
+        "Visits Left → Right → Root.",
+
+    },
+
+  };
+
+  const startTraversal = async () => {
+
     setIsRunning(true);
 
-    alert("Tree Traversal Animation Coming Soon");
+    setCurrentNode(null);
 
-    setTimeout(() => {
-      setIsRunning(false);
-    }, 1000);
+    setVisitedNodes([]);
+    setTraversalOrder([]);
+
+    if (algorithm === "Preorder") {
+
+          await preorderTraversal(
+            tree,
+          tree,
+      setCurrentNode,
+      setVisitedNodes,
+      setTraversalOrder,
+      speed
+     );
+
+    }
+
+    else if (algorithm === "Inorder") {
+
+        await inorderTraversal(
+             tree,
+     tree,
+     setCurrentNode,
+     setVisitedNodes,
+     setTraversalOrder,
+     speed
+    );
+
+    }
+
+    else {
+
+      await postorderTraversal(
+      tree,
+      tree,
+      setCurrentNode,
+      setVisitedNodes,
+      setTraversalOrder,
+      speed
+     );
+    }
+
+    setCurrentNode(null);
+
+    setIsRunning(false);
+
+  };
+
+  const generateTree = () => {
+
+    setCurrentNode(null);
+
+    setVisitedNodes([]);
+    setTraversalOrder([]);
+
   };
 
   const pauseTraversal = () => {
-    alert("Pause Feature Coming Soon");
+
+    alert("Pause feature coming soon.");
+
   };
 
   const resetTree = () => {
-    alert("Reset Tree");
+
+    setCurrentNode(null);
+
+    setVisitedNodes([]);
+     setTraversalOrder([]);
+
+     setIsRunning(false);
+
+  };
+
+  const nodeColor = (value, color) => {
+
+    if (currentNode === value)
+      return "bg-yellow-500";
+
+    if (visitedNodes.includes(value))
+      return "bg-green-500";
+
+    return color;
+
   };
 
   return (
-    <div className="bg-slate-950 text-white min-h-screen flex">
+  <div className="bg-slate-950 text-white min-h-screen flex">
 
-      {/* Sidebar */}
+    <Sidebar />
 
-      <Sidebar />
+    <div className="flex-1 p-8">
 
-      {/* Main Content */}
+      {/* Heading */}
 
-      <div className="flex-1 p-8">
+      <div className="mb-10">
 
-        {/* Heading */}
+        <h1 className="text-5xl font-bold">
+          🌳 Tree Visualizer
+        </h1>
 
-        <div className="mb-10">
+        <p className="text-gray-400 mt-4 text-lg">
+          Visualize tree traversal algorithms step by step.
+        </p>
 
-          <h1 className="text-5xl font-bold">
-            🌳 Tree Visualizer
-          </h1>
+      </div>
 
-          <p className="text-gray-400 mt-4 text-lg">
-            Learn Binary Search Tree and AVL Tree
-            through interactive visualization.
-          </p>
+      {/* Algorithm Selector */}
 
-        </div>
+      <div className="bg-slate-900 border border-slate-700 rounded-3xl p-6 mb-10">
 
-        {/* Tree Type */}
+        <label className="block mb-3 text-lg font-semibold">
+          Select Traversal
+        </label>
 
-        <div className="bg-slate-900 border border-slate-700 rounded-3xl p-6 mb-10">
+        <select
+          value={algorithm}
+          onChange={(e) => {
 
-          <label className="block text-lg font-semibold mb-3">
+            setAlgorithm(e.target.value);
 
-            Select Tree
+            setCurrentNode(null);
 
-          </label>
+            setVisitedNodes([]);
+            setTraversalOrder([]);
 
-          <select
-            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-5 py-3 outline-none focus:border-cyan-500"
-          >
+          }}
+          className="w-full bg-slate-800 border border-slate-700 rounded-xl px-5 py-3 outline-none"
+        >
 
-            <option>Binary Search Tree</option>
+          <option>Preorder</option>
 
-            <option>AVL Tree</option>
+          <option>Inorder</option>
 
-          </select>
+          <option>Postorder</option>
 
-        </div>
+        </select>
 
-        {/* Tree Visualization */}
+      </div>
 
-        <div className="bg-slate-900 border border-slate-700 rounded-3xl p-10">
+      {/* Tree */}
 
-          <h2 className="text-2xl font-bold mb-10">
-            🌳 Tree Structure
-          </h2>
+      <div className="bg-slate-900 border border-slate-700 rounded-3xl p-10">
 
-          <div className="flex justify-center">
+        <h2 className="text-2xl font-bold mb-10">
+          🌲 Binary Tree
+        </h2>
 
-            <div className="text-center">
+        <div className="flex justify-center">
 
-              <div className="w-16 h-16 rounded-full bg-cyan-500 flex items-center justify-center text-xl font-bold mx-auto">
-                50
-              </div>
+          <div className="relative w-[700px] h-[450px]">
 
-              <div className="flex justify-center gap-32 mt-12">
+            {/* Edges */}
 
-                <div>
+            <div className="absolute top-16 left-[270px] w-32 h-1 bg-slate-500 rotate-[28deg]" />
 
-                  <div className="w-14 h-14 rounded-full bg-blue-500 flex items-center justify-center font-bold mx-auto">
-                    30
-                  </div>
+            <div className="absolute top-16 left-[360px] w-32 h-1 bg-slate-500 -rotate-[28deg]" />
 
-                  <div className="flex gap-14 mt-10">
+            <div className="absolute top-44 left-[130px] w-24 h-1 bg-slate-500 rotate-[35deg]" />
 
-                    <div className="w-12 h-12 rounded-full bg-purple-500 flex items-center justify-center">
-                      20
-                    </div>
+            <div className="absolute top-44 left-[255px] w-24 h-1 bg-slate-500 -rotate-[35deg]" />
 
-                    <div className="w-12 h-12 rounded-full bg-purple-500 flex items-center justify-center">
-                      40
-                    </div>
+            <div className="absolute top-44 left-[445px] w-24 h-1 bg-slate-500 rotate-[35deg]" />
 
-                  </div>
+            <div className="absolute top-44 left-[565px] w-24 h-1 bg-slate-500 -rotate-[35deg]" />
 
-                </div>
+            {/* Root */}
 
-                <div>
+            <div
+              className={`absolute top-5 left-[344px] w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold transition-all duration-300 ${nodeColor(
+                50,
+                "bg-cyan-500"
+              )}`}
+            >
+              50
+            </div>
 
-                  <div className="w-14 h-14 rounded-full bg-blue-500 flex items-center justify-center font-bold mx-auto">
-                    70
-                  </div>
+            {/* Level 2 */}
 
-                  <div className="flex gap-14 mt-10">
+            <div
+              className={`absolute top-35 left-[210px] w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold transition-all duration-300 ${nodeColor(
+                30,
+                "bg-blue-500"
+              )}`}
+            >
+              30
+            </div>
 
-                    <div className="w-12 h-12 rounded-full bg-purple-500 flex items-center justify-center">
-                      60
-                    </div>
+            <div
+              className={`absolute top-35 right-[120px] w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold transition-all duration-300 ${nodeColor(
+                70,
+                "bg-blue-500"
+              )}`}
+            >
+              70
+            </div>
 
-                    <div className="w-12 h-12 rounded-full bg-purple-500 flex items-center justify-center">
-                      80
-                    </div>
+            {/* Level 3 */}
 
-                  </div>
+            <div
+              className={`absolute bottom-20 left-20 w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold transition-all duration-300 ${nodeColor(
+                20,
+                "bg-purple-500"
+              )}`}
+            >
+              20
+            </div>
 
-                </div>
+            <div
+              className={`absolute bottom-20 left-[310px] w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold transition-all duration-300 ${nodeColor(
+                40,
+                "bg-purple-500"
+              )}`}
+            >
+              40
+            </div>
 
-              </div>
+            <div
+              className={`absolute bottom-20 right-[200px] w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold transition-all duration-300 ${nodeColor(
+                60,
+                "bg-purple-500"
+              )}`}
+            >
+              60
+            </div>
 
+            <div
+              className={`absolute bottom-20  right-5 w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold transition-all duration-300 ${nodeColor(
+                80,
+                "bg-purple-500"
+              )}`}
+            >
+              80
             </div>
 
           </div>
 
         </div>
 
-        {/* Controls */}
+      </div>
 
-        <div className="mt-10">
-
-          <ControlPanel
-            generateArray={generateTree}
-            startSorting={startTraversal}
-            pauseSorting={pauseTraversal}
-            resetArray={resetTree}
-            speed={speed}
-            setSpeed={setSpeed}
-            isSorting={isRunning}
-          />
-
+            <div className="mt-10 bg-slate-900 border border-slate-700 rounded-3xl p-6">
+      
+        <h2 className="text-2xl font-bold mb-4">
+          📋 Traversal Order
+        </h2>
+      
+        <div className="flex flex-wrap gap-2 text-xl font-semibold text-cyan-400">
+      
+          {traversalOrder.length === 0 ? (
+      
+            <span className="text-gray-400">
+              Click Start Traversal
+            </span>
+      
+          ) : (
+      
+            traversalOrder.map((node, index) => (
+      
+              <span key={index}>
+      
+                {node}
+      
+                {index !== traversalOrder.length - 1 && " → "}
+      
+              </span>
+      
+            ))
+      
+          )}
+      
         </div>
+      
+      </div>
 
-        {/* Speed */}
+      {/* Control Panel */}
 
-        <div className="mt-10">
+      <div className="mt-10">
 
-          <SpeedSlider
-            speed={speed}
-            setSpeed={setSpeed}
-          />
+        <ControlPanel
+          generateArray={generateTree}
+          startSorting={startTraversal}
+          pauseSorting={pauseTraversal}
+          resetArray={resetTree}
+          speed={speed}
+          setSpeed={setSpeed}
+          isSorting={isRunning}
+        />
 
-        </div>
+      </div>
 
-        {/* Complexity */}
+      {/* Speed */}
 
-        <div className="mt-10">
+      <div className="mt-10">
 
-          <ComplexityCard
-            algorithm="Binary Search Tree"
-            best="O(log n)"
-            average="O(log n)"
-            worst="O(n)"
-            space="O(n)"
-            description="A Binary Search Tree stores elements in sorted order. Every node's left child contains smaller values while the right child contains larger values. BST allows efficient searching, insertion and deletion."
-          />
+        <SpeedSlider
+          speed={speed}
+          setSpeed={setSpeed}
+        />
 
-        </div>
+      </div>
+
+      {/* Complexity */}
+
+      <div className="mt-10">
+
+        <ComplexityCard
+          algorithm={algorithm}
+          best={treeDetails[algorithm].best}
+          average={treeDetails[algorithm].average}
+          worst={treeDetails[algorithm].worst}
+          space={treeDetails[algorithm].space}
+          description={treeDetails[algorithm].description}
+        />
 
       </div>
 
     </div>
-  );
-};
 
+  </div>
+);
+};
 export default Trees;

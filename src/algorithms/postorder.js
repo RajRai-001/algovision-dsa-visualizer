@@ -9,6 +9,7 @@ export const postorderTraversal = async (
   node,
   setCurrentNode,
   setVisitedNodes,
+  setTraversalOrder,
   speed,
   visited = []
 ) => {
@@ -20,6 +21,7 @@ export const postorderTraversal = async (
     node.left,
     setCurrentNode,
     setVisitedNodes,
+     setTraversalOrder,
     speed,
     visited
   );
@@ -29,6 +31,7 @@ export const postorderTraversal = async (
     node.right,
     setCurrentNode,
     setVisitedNodes,
+     setTraversalOrder,
     speed,
     visited
   );
@@ -38,6 +41,7 @@ export const postorderTraversal = async (
   visited.push(node.value);
 
   setVisitedNodes([...visited]);
+  setTraversalOrder([...visited]);
 
   await sleep(speed);
 
