@@ -220,22 +220,24 @@ const Graphs = () => {
 
             <div className="relative w-[650px] h-[420px]">
 
-              {/* Edges */}
+             {/* Edges */}
 
-              <div className="absolute top-16 left-36 w-36 h-1 bg-slate-500 rotate-[25deg]" />
+            <div className="absolute top-16 left-[240px] w-32 h-1 bg-slate-500 rotate-[28deg]" />
 
-              <div className="absolute top-16 left-[320px] w-36 h-1 bg-slate-500 -rotate-[25deg]" />
+            <div className="absolute top-16 left-[390px] w-32 h-1 bg-slate-500 -rotate-[28deg]" />
 
-              <div className="absolute top-44 left-[165px] w-72 h-1 bg-slate-500" />
+            <div className="absolute top-44 left-[100px] w-24 h-1 bg-slate-500 rotate-[35deg]" />
 
-              <div className="absolute top-48 left-36 w-36 h-1 bg-slate-500 rotate-[40deg]" />
+            <div className="absolute top-44 left-[225px] w-24 h-1 bg-slate-500 -rotate-[35deg]" />
 
-              <div className="absolute top-48 left-[320px] w-36 h-1 bg-slate-500 -rotate-[40deg]" />
+            <div className="absolute top-44 left-[445px] w-24 h-1 bg-slate-500 rotate-[35deg]" />
+
+            <div className="absolute top-44 left-[565px] w-24 h-1 bg-slate-500 -rotate-[35deg]" />
 
               {/* Nodes */}
 
               <div
-                className={`absolute top-0 left-[280px] w-16 h-16 rounded-full flex items-center justify-center font-bold text-xl transition-all duration-300 ${nodeClass(
+                className={`absolute top-7 left-[345px] w-16 h-16 rounded-full flex items-center justify-center font-bold text-xl transition-all duration-300 ${nodeClass(
                   "A",
                   "bg-cyan-500"
                 )}`}
@@ -244,7 +246,7 @@ const Graphs = () => {
               </div>
 
               <div
-                className={`absolute top-28 left-20 w-16 h-16 rounded-full flex items-center justify-center font-bold text-xl transition-all duration-300 ${nodeClass(
+                className={`absolute top-35 left-45 w-16 h-16 rounded-full flex items-center justify-center font-bold text-xl transition-all duration-300 ${nodeClass(
                   "B",
                   "bg-blue-500"
                 )}`}
@@ -253,7 +255,7 @@ const Graphs = () => {
               </div>
 
               <div
-                className={`absolute top-28 right-20 w-16 h-16 rounded-full flex items-center justify-center font-bold text-xl transition-all duration-300 ${nodeClass(
+                className={`absolute top-35 right-17 w-16 h-16 rounded-full flex items-center justify-center font-bold text-xl transition-all duration-300 ${nodeClass(
                   "C",
                   "bg-blue-500"
                 )}`}
@@ -262,7 +264,7 @@ const Graphs = () => {
               </div>
 
               <div
-                className={`absolute bottom-0 left-20 w-16 h-16 rounded-full flex items-center justify-center font-bold text-xl transition-all duration-300 ${nodeClass(
+                className={`absolute bottom-15 left-25 w-16 h-16 rounded-full flex items-center justify-center font-bold text-xl transition-all duration-300 ${nodeClass(
                   "D",
                   "bg-purple-500"
                 )}`}
@@ -271,7 +273,7 @@ const Graphs = () => {
               </div>
 
               <div
-                className={`absolute bottom-0 right-20 w-16 h-16 rounded-full flex items-center justify-center font-bold text-xl transition-all duration-300 ${nodeClass(
+                className={`absolute bottom-10 right-0 w-16 h-16 rounded-full flex items-center justify-center font-bold text-xl transition-all duration-300 ${nodeClass(
                   "E",
                   "bg-purple-500"
                 )}`}

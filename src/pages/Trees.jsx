@@ -258,9 +258,9 @@ const Trees = () => {
 
             {/* Edges */}
 
-            <div className="absolute top-16 left-[270px] w-32 h-1 bg-slate-500 rotate-[28deg]" />
+            <div className="absolute top-16 left-[240px] w-32 h-1 bg-slate-500 rotate-[28deg]" />
 
-            <div className="absolute top-16 left-[360px] w-32 h-1 bg-slate-500 -rotate-[28deg]" />
+            <div className="absolute top-16 left-[390px] w-32 h-1 bg-slate-500 -rotate-[28deg]" />
 
             <div className="absolute top-44 left-[130px] w-24 h-1 bg-slate-500 rotate-[35deg]" />
 
@@ -273,7 +273,7 @@ const Trees = () => {
             {/* Root */}
 
             <div
-              className={`absolute top-5 left-[344px] w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold transition-all duration-300 ${nodeColor(
+              className={`absolute top-7 left-[344px] w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold transition-all duration-300 ${nodeColor(
                 50,
                 "bg-cyan-500"
               )}`}

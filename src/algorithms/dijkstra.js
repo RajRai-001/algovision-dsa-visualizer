@@ -1,9 +1,7 @@
-// Delay Function
 export const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
-// Dijkstra Algorithm
 export const dijkstra = async (
   graph,
   startNode,
@@ -13,54 +11,49 @@ export const dijkstra = async (
 ) => {
 
   const distances = {};
-  const visited = new Set();
+  const visited = [];
+  const unvisited = [];
 
   // Initialize distances
   for (const node in graph) {
     distances[node] = Infinity;
+    unvisited.push(node);
   }
 
   distances[startNode] = 0;
 
-  while (visited.size < Object.keys(graph).length) {
+  while (unvisited.length > 0) {
 
-    let current = null;
+    // Find node with minimum distance
+    let current = unvisited[0];
 
-    for (const node in distances) {
-
-      if (
-        !visited.has(node) &&
-        (current === null ||
-          distances[node] < distances[current])
-      ) {
-
+    for (const node of unvisited) {
+      if (distances[node] < distances[current]) {
         current = node;
-
       }
-
     }
 
-    if (current === null) break;
+    // Remove current node
+    unvisited.splice(unvisited.indexOf(current), 1);
 
-    visited.add(current);
-
+    // Highlight current node
     setCurrentNode(current);
+
+    visited.push(current);
 
     setVisitedNodes([...visited]);
 
     await sleep(speed);
 
-    for (const neighbour of graph[current]) {
+    // Update neighbors
+    for (const neighbor of graph[current]) {
 
-      const weight = 1;
+      const newDistance =
+        distances[current] + neighbor.weight;
 
-      if (
-        distances[current] + weight <
-        distances[neighbour]
-      ) {
+      if (newDistance < distances[neighbor.node]) {
 
-        distances[neighbour] =
-          distances[current] + weight;
+        distances[neighbor.node] = newDistance;
 
       }
 
