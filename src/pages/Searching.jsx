@@ -6,6 +6,9 @@ import ControlPanel from "../components/ControlPanel";
 import SpeedSlider from "../components/SpeedSlider";
 import ComplexityCard from "../components/ComplexityCard";
 
+import { linearSearch } from "../algorithms/linearSearch";
+import { binarySearch } from "../algorithms/binarySearch";
+
 const Searching = () => {
 
   const [array, setArray] = useState([
@@ -18,46 +21,115 @@ const Searching = () => {
 
   const [isSearching, setIsSearching] = useState(false);
 
+  const [algorithm, setAlgorithm] = useState("Linear Search");
+
+  const [comparing, setComparing] = useState([]);
+
+  const [found, setFound] = useState([]);
+
+
+         const searchDetails = {
+         "Linear Search": {
+           best: "O(1)",
+           average: "O(n)",
+           worst: "O(n)",
+           space: "O(1)",
+           description:
+             "Linear Search checks each element one by one until the target is found.",
+         },
+       
+         "Binary Search": {
+           best: "O(1)",
+           average: "O(log n)",
+           worst: "O(log n)",
+           space: "O(1)",
+           description:
+             "Binary Search repeatedly divides a sorted array into halves to locate the target efficiently.",
+         },
+    };
+
   // Generate Sorted Array
-  const generateArray = () => {
+      const generateArray = () => {
+    
+      const arr = [];
+    
+      for (let i = 0; i < 10; i++) {
+        arr.push(Math.floor(Math.random() * 100));
+      }
+    
+      arr.sort((a, b) => a - b);
+    
+      setArray(arr);
+    
+      setTarget("");
+    
+      setComparing([]);
+    
+      setFound([]);
 
-    const arr = [];
-
-    for (let i = 0; i < 10; i++) {
-      arr.push(Math.floor(Math.random() * 100));
-    }
-
-    arr.sort((a, b) => a - b);
-
-    setArray(arr);
-  };
+    };
 
   // Placeholder Functions
 
-  const startSearching = () => {
-
-    if (target === "") {
-      alert("Please enter a target value.");
-      return;
-    }
-
-    alert("Searching animation will be added soon.");
-
-    setIsSearching(true);
-
-    setTimeout(() => {
+        const startSearching = async () => {
+    
+      if (target.trim() === "") {
+        alert("Please enter a target value.");
+        return;
+      }
+    
+      setIsSearching(true);
+    
+      setComparing([]);
+      setFound([]);
+    
+      let index;
+    
+      if (algorithm === "Linear Search") {
+    
+        index = await linearSearch(
+          array,
+          target,
+          setComparing,
+          setFound,
+          speed
+        );
+    
+      } else {
+    
+        index = await binarySearch(
+          array,
+          target,
+          setComparing,
+          setFound,
+          speed
+        );
+    
+      }
+    
       setIsSearching(false);
-    }, 1000);
-  };
+    
+      if (index === -1) {
+        alert("❌ Element not found!");
+      } else {
+        alert(`✅ Element found at index ${index}`);
+      }
+
+   };
 
   const pauseSearching = () => {
     alert("Pause feature coming soon.");
   };
 
-  const resetArray = () => {
-    generateArray();
-    setTarget("");
-  };
+        const resetArray = () => {
+        generateArray();
+      
+        setTarget("");
+      
+        setComparing([]);
+      
+        setFound([]);
+      };
 
   return (
     <div className="bg-slate-950 text-white min-h-screen flex">
@@ -84,6 +156,32 @@ const Searching = () => {
           </p>
 
         </div>
+
+
+        <div className="bg-slate-900 border border-slate-700 rounded-3xl p-6 mb-6">
+
+      <label className="block mb-3 text-lg font-semibold">
+        Select Algorithm
+      </label>
+    
+        <select
+          value={algorithm}
+          onChange={(e) => {
+        
+            setAlgorithm(e.target.value);
+        
+            setComparing([]);
+        
+            setFound([]);
+        
+          }}
+          className="w-full bg-slate-800 border border-slate-700 rounded-xl px-5 py-3 outline-none focus:border-cyan-500"
+        >
+        <option>Linear Search</option>
+        <option>Binary Search</option>
+      </select>
+    
+      </div>
 
         {/* Search Box */}
 
@@ -114,14 +212,12 @@ const Searching = () => {
 
         </div>
 
-        {/* Array */}
-
-        <ArrayBars
-          array={array}
-          comparing={[]}
-          swapping={[]}
-          sorted={[]}
-        />
+          <ArrayBars
+            array={array}
+            comparing={comparing}
+            swapping={[]}
+            sorted={found}
+           />
 
         {/* Controls */}
 
@@ -154,15 +250,14 @@ const Searching = () => {
 
         <div className="mt-10">
 
-          <ComplexityCard
-            algorithm="Binary Search"
-            best="O(1)"
-            average="O(log n)"
-            worst="O(log n)"
-            space="O(1)"
-            description="Binary Search works only on sorted arrays. It repeatedly divides the search space into halves until the target element is found."
+                <ComplexityCard
+            algorithm={algorithm}
+            best={searchDetails[algorithm].best}
+            average={searchDetails[algorithm].average}
+            worst={searchDetails[algorithm].worst}
+            space={searchDetails[algorithm].space}
+            description={searchDetails[algorithm].description}
           />
-
         </div>
 
       </div>

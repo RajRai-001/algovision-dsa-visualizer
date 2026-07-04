@@ -6,13 +6,36 @@ import ControlPanel from "../components/ControlPanel";
 import ComplexityCard from "../components/ComplexityCard";
 import SpeedSlider from "../components/SpeedSlider";
 
+import { bubbleSort } from "../algorithms/bubbleSort";
+
+import { selectionSort } from "../algorithms/selectionSort";
+
+import { insertionSort } from "../algorithms/insertionSort";
+
+import { mergeSort } from "../algorithms/mergeSort";
+
+import { quickSort } from "../algorithms/quickSort";
+
+import { linearSearch } from "../algorithms/linearSearch";
+import { binarySearch } from "../algorithms/binarySearch";
+
+
 const Sorting = () => {
 
   const [array, setArray] = useState([
     30, 70, 45, 90, 20, 80, 50, 65, 10, 55
   ]);
 
+  
+
   const [speed, setSpeed] = useState(300);
+  const [algorithm, setAlgorithm] = useState("Bubble Sort");
+
+  const [comparing, setComparing] = useState([]);
+
+  const [swapping, setSwapping] = useState([]);
+
+  const [sorted, setSorted] = useState([]);
 
   const [isSorting, setIsSorting] = useState(false);
 
@@ -29,14 +52,82 @@ const Sorting = () => {
   };
 
   // Temporary Functions
-  const startSorting = () => {
-    alert("Bubble Sort animation will be added next.");
-    setIsSorting(true);
+  const startSorting = async () => {
 
-    setTimeout(() => {
-      setIsSorting(false);
-    }, 1000);
-  };
+  setIsSorting(true);
+
+  setComparing([]);
+  setSwapping([]);
+  setSorted([]);
+
+  if (algorithm === "Bubble Sort") {
+
+    await bubbleSort(
+      array,
+      setArray,
+      setComparing,
+      setSwapping,
+      setSorted,
+      speed
+    );
+
+  }
+
+  else if (algorithm === "Selection Sort") {
+
+    await selectionSort(
+      array,
+      setArray,
+      setComparing,
+      setSwapping,
+      setSorted,
+      speed
+    );
+
+  }
+
+  else if (algorithm === "Insertion Sort") {
+
+    await insertionSort(
+    array,
+    setArray,
+    setComparing,
+    setSwapping,
+    setSorted,
+    speed
+    );
+
+  }
+
+   else if (algorithm === "Merge Sort") {
+
+    await mergeSort(
+    array,
+    setArray,
+    setComparing,
+    setSwapping,
+    setSorted,
+    speed
+    );
+
+  }
+
+  else if (algorithm === "Quick Sort") {
+
+    await quickSort(
+    array,
+    setArray,
+    setComparing,
+    setSwapping,
+    setSorted,
+    speed
+    );
+
+  }
+
+  setIsSorting(false);
+
+};
 
   const pauseSorting = () => {
     alert("Pause feature coming soon.");
@@ -45,6 +136,52 @@ const Sorting = () => {
   const resetArray = () => {
     generateArray();
   };
+  const algorithmDetails = {
+  "Bubble Sort": {
+    best: "O(n)",
+    average: "O(n²)",
+    worst: "O(n²)",
+    space: "O(1)",
+    description:
+      "Bubble Sort repeatedly compares adjacent elements and swaps them whenever they are in the wrong order.",
+  },
+
+  "Selection Sort": {
+    best: "O(n²)",
+    average: "O(n²)",
+    worst: "O(n²)",
+    space: "O(1)",
+    description:
+      "Selection Sort repeatedly selects the minimum element and places it in its correct position.",
+  },
+
+  "Insertion Sort": {
+    best: "O(n)",
+    average: "O(n²)",
+    worst: "O(n²)",
+    space: "O(1)",
+    description:
+      "Insertion Sort builds the sorted array one element at a time.",
+  },
+
+  "Merge Sort": {
+    best: "O(n log n)",
+    average: "O(n log n)",
+    worst: "O(n log n)",
+    space: "O(n)",
+    description:
+      "Merge Sort recursively divides the array and merges sorted halves.",
+  },
+
+  "Quick Sort": {
+    best: "O(n log n)",
+    average: "O(n log n)",
+    worst: "O(n²)",
+    space: "O(log n)",
+    description:
+      "Quick Sort partitions the array around a pivot element.",
+  },
+};
 
   return (
     <div className="bg-slate-950 text-white min-h-screen flex">
@@ -72,14 +209,38 @@ const Sorting = () => {
 
         </div>
 
+        {/* Algorithm Selector */}
+
+<div className="mb-8">
+
+  <label className="block mb-2 text-lg font-semibold">
+    Select Algorithm
+  </label>
+
+  <select
+    value={algorithm}
+    onChange={(e) => setAlgorithm(e.target.value)}
+    className="bg-slate-800 border border-slate-700 rounded-xl px-4 py-3"
+  >
+    <option>Bubble Sort</option>
+    <option>Selection Sort</option>
+    <option>Insertion Sort</option>
+    <option>Merge Sort</option>
+    <option>Quick Sort</option>
+  </select>
+
+</div>
+
+
         {/* Array */}
 
         <ArrayBars
-          array={array}
-          comparing={[]}
-          swapping={[]}
-          sorted={[]}
+         array={array}
+         comparing={comparing}
+         swapping={swapping}
+         sorted={sorted}
         />
+        
 
         {/* Control Panel */}
 
@@ -113,12 +274,12 @@ const Sorting = () => {
         <div className="mt-10">
 
           <ComplexityCard
-            algorithm="Bubble Sort"
-            best="O(n)"
-            average="O(n²)"
-            worst="O(n²)"
-            space="O(1)"
-            description="Bubble Sort repeatedly compares adjacent elements and swaps them whenever they are in the wrong order. Although simple to understand, it is inefficient for large datasets."
+           algorithm={algorithm}
+           best={algorithmDetails[algorithm].best}
+           average={algorithmDetails[algorithm].average}
+           worst={algorithmDetails[algorithm].worst}
+           space={algorithmDetails[algorithm].space}
+            description={algorithmDetails[algorithm].description}
           />
 
         </div>
