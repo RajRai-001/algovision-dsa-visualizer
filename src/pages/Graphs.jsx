@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import Sidebar from "../components/Sidebar";
+import ArrayBars from "../components/ArrayBars";
 import ControlPanel from "../components/ControlPanel";
 import SpeedSlider from "../components/SpeedSlider";
 import ComplexityCard from "../components/ComplexityCard";
@@ -286,6 +287,10 @@ const Graphs = () => {
           </div>
 
         </div>
+
+
+
+        
 
         {/* Controls */}
 

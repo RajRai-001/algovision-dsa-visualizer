@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import Sidebar from "../components/Sidebar";
+import ArrayBars from "../components/ArrayBars";
 import ControlPanel from "../components/ControlPanel";
 import SpeedSlider from "../components/SpeedSlider";
 import ComplexityCard from "../components/ComplexityCard";
@@ -191,6 +192,8 @@ const Trees = () => {
   };
 
   return (
+
+    
   <div className="bg-slate-950 text-white min-h-screen flex">
 
     <Sidebar />
@@ -345,6 +348,8 @@ const Trees = () => {
 
       </div>
 
+      
+
             <div className="mt-10 bg-slate-900 border border-slate-700 rounded-3xl p-6">
       
         <h2 className="text-2xl font-bold mb-4">
@@ -378,6 +383,10 @@ const Trees = () => {
         </div>
       
       </div>
+
+
+
+      
 
       {/* Control Panel */}
 
