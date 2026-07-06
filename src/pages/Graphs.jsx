@@ -288,10 +288,6 @@ const Graphs = () => {
 
         </div>
 
-
-
-        
-
         {/* Controls */}
 
         <div className="mt-10">
