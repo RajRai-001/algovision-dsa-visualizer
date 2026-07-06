@@ -330,7 +330,7 @@ const Trees = () => {
                 "bg-purple-500"
               )}`}
             >
-              60
+              70
             </div>
 
             <div
