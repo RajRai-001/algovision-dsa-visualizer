@@ -10,7 +10,10 @@ import DynamicProgramming from "./pages/DynamicProgramming";
 
 const App = () => {
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
+    <div className="min-h-screen bg-gradient-to-br
+from-[#042c1d]
+via-[#1a2c59]
+to-[#6e85b5] text-white">
 
       <Routes>
 

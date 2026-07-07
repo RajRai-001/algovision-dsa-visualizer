@@ -161,7 +161,10 @@ const Graphs = () => {
   };
 
   return (
-    <div className="bg-slate-950 text-white min-h-screen flex">
+    <div className="bg-gradient-to-br
+from-[#042c1d]
+via-[#1a2c59]
+to-[#6e85b5] text-white min-h-screen flex">
 
       <Sidebar />
 

@@ -6,7 +6,10 @@ import AlgorithmCard from "../components/AlgorithmCard";
 
 const Home = () => {
   return (
-    <div className="bg-slate-950 text-white min-h-screen">
+    <div className="bg-gradient-to-br
+from-[#042c1d]
+via-[#1a2c59]
+to-[#6e85b5] text-white min-h-screen">
 
       {/* Hero Section */}
 
@@ -181,7 +184,7 @@ const Home = () => {
 
       <section className="py-20">
 
-        <div className="max-w-7xl mx-auto px-6">
+        <div className=" max-w-7xl mx-auto px-6">
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
 
