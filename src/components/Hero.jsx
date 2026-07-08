@@ -95,9 +95,9 @@ const Hero = () => {
               {/* Window Header */}
 
               <div className="flex gap-2 px-5 py-4 border-b bg-gradient-to-br
-from-[#042c1d]
-via-[#1a2c59]
-to-[#6e85b5 border-slate-700">
+              from-[#042c1d]
+              via-[#1a2c59]
+              to-[#6e85b5 border-slate-700">
 
                 <div className="w-3 h-3 rounded-full bg-red-500"></div>
                 <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
@@ -108,9 +108,9 @@ to-[#6e85b5 border-slate-700">
               {/* Visualization */}
 
               <div className="bg-gradient-to-br
-from-[#042c1d]
-via-[#1a2c59]
-to-[#6e85b5 p-8">
+                  from-[#042c1d]
+                  via-[#1a2c59]
+                  to-[#6e85b5 p-8">
 
                 <h3 className="text-xl font-bold mb-8 text-center">
                   Bubble Sort Visualization
